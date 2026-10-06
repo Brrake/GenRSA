@@ -28,7 +28,7 @@ if '%errorlevel%' NEQ '0' (
 
 set OPENSSL_KEY_SIZE=2048
 set PROJ_DIR=%cd%
-set OPENSSL_OUT_DIR=%PROJ_DIR%/keys
+set OPENSSL_OUT_DIR=%PROJ_DIR%\keys
 
 set OPENSSL_PATH="C:\Program Files\Git\usr\bin"
 
@@ -53,10 +53,10 @@ if not exist %OPENSSL_OUT_DIR% (
 
 rem Genera private key
 echo ---- Generazione private key... ----
-.\openssl genpkey -algorithm RSA -out %OPENSSL_OUT_DIR%\private_key.pem -pkeyopt rsa_keygen_bits:%OPENSSL_KEY_SIZE%
+.\openssl genpkey -algorithm RSA -out "%OPENSSL_OUT_DIR%\private_key.pem" -pkeyopt rsa_keygen_bits:%OPENSSL_KEY_SIZE%
 
 rem Genera public key da private key
 echo ---- Generazione public key... ----
-.\openssl rsa -pubout -in %OPENSSL_OUT_DIR%\private_key.pem -out %OPENSSL_OUT_DIR%\public_key.pem
+.\openssl rsa -pubout -in "%OPENSSL_OUT_DIR%\private_key.pem" -out "%OPENSSL_OUT_DIR%\public_key.pem"
 
 pause
