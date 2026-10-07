@@ -24,7 +24,14 @@ def parse_args():
     parser.add_argument("--key_size", default=2048, help="Key size in bits")
     parser.add_argument("--out_dir", default="keys", help="Output directory")
     parser.add_argument("--openssl_path", default="C:\\Program Files\\Git\\usr\\bin", help="Path to openssl.exe")
-    return parser.parse_args()
+
+    args = parser.parse_args()
+
+    print(f"\nKey size: {args.key_size} bits")
+    print(f"Output directory: {args.out_dir}")
+    print(f"OpenSSL path: {args.openssl_path}\n")
+    
+    return args
 
 if not env_file.exists():
     shutil.copy(script_dir/'.env.example', script_dir/'.env')
