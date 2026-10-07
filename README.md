@@ -1,6 +1,6 @@
-# GenRSA-Windows
+# GenRSA
 
-Script per generare una coppia di chiavi RSA (privata e pubblica) su Windows utilizzando OpenSSL.
+Script per generare una coppia di chiavi RSA (privata e pubblica) utilizzando OpenSSL.
 
 ## Funzionamento
 
