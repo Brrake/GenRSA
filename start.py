@@ -4,15 +4,20 @@ import subprocess
 import os
 from pathlib import Path
 import sys
+import shutil
 
-OPENSSL_KEY_SIZE = int(os.getenv('OPENSSL_KEY_SIZE'))
-OPENSSL_OUT_DIR = os.getenv('OPENSSL_OUT_DIR')
-OPENSSL_PATH = os.getenv('OPENSSL_PATH')
+OPENSSL_KEY_SIZE = int(os.getenv('OPENSSL_KEY_SIZE', 2048))
+OPENSSL_OUT_DIR = os.getenv('OPENSSL_OUT_DIR', 'keys')
+OPENSSL_PATH = os.getenv('OPENSSL_PATH', 'C:\\Program Files\\Git\\usr\\bin')
 
 script_dir = Path(__file__).resolve().parent
+env_file = script_dir / '.env'
 out_dir = script_dir / OPENSSL_OUT_DIR
 openssl_path = Path(OPENSSL_PATH).resolve()
 out_dir.mkdir(exist_ok=True)
+
+if not env_file.exists():
+    shutil.copy(script_dir/'.env.example', script_dir/'.env')
 
 if __name__ == '__main__':
     print('Welcome to GenRSA-Windows!')
