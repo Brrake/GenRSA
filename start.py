@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import sys
 import shutil
+import argparse
 
 OPENSSL_KEY_SIZE = int(os.getenv('OPENSSL_KEY_SIZE', 2048))
 OPENSSL_OUT_DIR = os.getenv('OPENSSL_OUT_DIR', 'keys')
@@ -16,11 +17,37 @@ out_dir = script_dir / OPENSSL_OUT_DIR
 openssl_path = Path(OPENSSL_PATH).resolve()
 out_dir.mkdir(exist_ok=True)
 
+
+def parse_args():
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--key_size", default=2048, help="Key size in bits")
+    parser.add_argument("--out_dir", default="keys", help="Output directory")
+    parser.add_argument("--openssl_path", default="C:\\Program Files\\Git\\usr\\bin", help="Path to openssl.exe")
+    return parser.parse_args()
+
 if not env_file.exists():
     shutil.copy(script_dir/'.env.example', script_dir/'.env')
 
 if __name__ == '__main__':
     print('Welcome to GenRSA-Windows!')
+    args = parse_args()
+
+    if args.key_size != OPENSSL_KEY_SIZE:
+        OPENSSL_KEY_SIZE = args.key_size
+        print(f'Key size changed to {OPENSSL_KEY_SIZE} bits.')
+
+    if args.out_dir != OPENSSL_OUT_DIR:
+        OPENSSL_OUT_DIR = args.out_dir
+        out_dir = script_dir / OPENSSL_OUT_DIR
+        out_dir.mkdir(exist_ok=True)
+        print(f'Output directory changed to {OPENSSL_OUT_DIR}.')
+
+    if args.openssl_path != OPENSSL_PATH:
+        OPENSSL_PATH = args.openssl_path
+        openssl_path = Path(OPENSSL_PATH).resolve()
+        print(f'OpenSSL path changed to {OPENSSL_PATH}.')
+
     try:
         # Check if openssl.exe exists
         if not (openssl_path / 'openssl.exe').exists():
