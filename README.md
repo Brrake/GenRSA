@@ -2,7 +2,7 @@
 Genera chiavi RSA utilizzando openssl.exe 
 
 
-1) Apri il file "start.bat"    
+1) Apri il file ".env"    
 
     - OPENSSL_KEY_SIZE : Dimensione in bit della chiave RSA -- DEFAULT : 2048
     - OPENSSL_OUT_DIR : Path di uscita della chiavi (Pubblica/Privata) -- DEFAULT : ./keys
